@@ -8,6 +8,7 @@ type Params = {
   titleRef: React.RefObject<HTMLHeadingElement | null>;
   descRef: React.RefObject<HTMLParagraphElement | null>;
   tagsRef: React.RefObject<HTMLUListElement | null>;
+  paletteRef: React.RefObject<HTMLDivElement | null>;
 };
 
 export const changeText = async ({
@@ -17,6 +18,7 @@ export const changeText = async ({
   titleRef,
   descRef,
   tagsRef,
+  paletteRef,
 }: Params) => {
   const titleElement = titleRef.current;
   const descElement = descRef.current;
@@ -50,11 +52,12 @@ export const changeText = async ({
     '<'
   );
 
-  if (tagsRef.current) {
-    const liElements = tagsRef.current.querySelectorAll('li');
+  if (tagsRef.current || paletteRef.current) {
+    const liElements = tagsRef.current?.querySelectorAll('li');
+    const paletteElements = paletteRef.current?.querySelectorAll('span');
 
     outTimeline.to(
-      liElements,
+      [liElements, paletteElements],
       {
         opacity: 0,
         x: -50,
@@ -100,10 +103,11 @@ export const changeText = async ({
     duration: 0.4,
     ease: 'power2.out',
   });
-  if (tagsRef.current) {
-    const liElements = tagsRef.current.querySelectorAll('li');
+  if (tagsRef.current || paletteRef.current) {
+    const liElements = tagsRef.current?.querySelectorAll('li');
+    const paletteElements = paletteRef.current?.querySelectorAll('span');
 
-    outTimeline.to(liElements, {
+    outTimeline.to([liElements, paletteElements], {
       opacity: 1,
       x: 0,
       duration: 0.4,
