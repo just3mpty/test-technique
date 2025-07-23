@@ -3,15 +3,15 @@
 import { useRef, useState } from 'react';
 import { ProjectType } from '@/types/ProjectType';
 import { getModelPath } from '@/utils/getModelPath';
-import dynamic from 'next/dynamic';
 import styles from '../app/styles/components/Homepage.module.scss';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
 import { changeText } from '@/utils/changeText';
+import Scene from './3D/Scene';
+import Link from 'next/link';
+import Image from 'next/image';
 
 gsap.registerPlugin(SplitText);
-
-const Scene = dynamic(() => import('./3D/Scene'), { ssr: false });
 
 type Props = {
   projects: ProjectType[];
@@ -42,7 +42,19 @@ export default function PortfolioClient({ projects }: Props) {
       {project && (
         <>
           <div className={styles.projects}>
-            <h2 ref={titleRef}>{project.title}</h2>
+            <div className={styles.header}>
+              <h2 ref={titleRef}>{project.title}</h2>
+              {project.url && (
+                <Link href={project.url} target='_blank' rel='noreferrer'>
+                  <Image
+                    src={'/icons/external_link.svg'}
+                    alt='External link icon'
+                    width={60}
+                    height={60}
+                  />
+                </Link>
+              )}
+            </div>
             <p ref={descRef}>{project.description}</p>
             <ul ref={tagsRef}>
               {project.tags?.map((tag, i) => (

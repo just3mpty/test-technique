@@ -19,11 +19,17 @@
     color: whitesmoke;
     position: relative;
 
-    h2 {
-      color: $pink;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 60px;
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      h2 {
+        color: $pink;
+        font-weight: 700;
+        text-transform: uppercase;
+        font-size: 60px;
+      }
     }
 
     p {

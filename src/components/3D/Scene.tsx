@@ -6,7 +6,7 @@ import Model from './Model';
 
 export default function Scene({ path }: { path: string }) {
   return (
-    <Canvas style={{ width: '100%', height: '100vh' }}>
+    <Canvas>
       <ambientLight intensity={1.5} />
       <OrbitControls enableZoom={false} />
       <Model modelPath={path} />
