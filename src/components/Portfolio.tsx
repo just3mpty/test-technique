@@ -2,8 +2,6 @@
 
 import { useRef, useState } from 'react';
 import { ProjectType } from '@/types/ProjectType';
-import { Canvas } from '@react-three/fiber';
-import { Environment, OrbitControls } from '@react-three/drei';
 import { getModelPath } from '@/utils/getModelPath';
 import dynamic from 'next/dynamic';
 import styles from '../app/styles/components/Homepage.module.scss';
@@ -13,7 +11,7 @@ import { changeText } from '@/utils/changeText';
 
 gsap.registerPlugin(SplitText);
 
-const Model = dynamic(() => import('./3D/Model'), { ssr: false });
+const Scene = dynamic(() => import('./3D/Scene'), { ssr: false });
 
 type Props = {
   projects: ProjectType[];
@@ -58,13 +56,7 @@ export default function PortfolioClient({ projects }: Props) {
           </div>
 
           <div className={styles.canvas}>
-            <Canvas camera={{ position: [0, 0, 0], fov: 45 }}>
-              <ambientLight />
-              <directionalLight position={[2, 2, 2]} />
-              <Model modelPath={getModelPath(project)} />
-              <OrbitControls />
-              <Environment preset='city' />
-            </Canvas>
+            <Scene path={getModelPath(project)} />
           </div>
         </>
       )}
