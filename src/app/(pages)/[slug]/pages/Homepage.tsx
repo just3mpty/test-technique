@@ -1,15 +1,15 @@
-import { fetchGraphQL } from '@/lib/strapi/fetchGraphql';
+// import { fetchGraphQL } from '@/lib/strapi/fetchGraphql';
 
-const homeQuery = /* GRAPHQL ;) */ ``;
+// const homeQuery = /* GRAPHQL ;) */ ``;
 
 export default async function Homepage() {
-  const data = await fetchGraphQL<{
-    home: {
-      title: string;
-      description: string;
-      // ETC
-    };
-  }>(homeQuery, {});
+  // const data = await fetchGraphQL<{
+  //   home: {
+  //     title: string;
+  //     description: string;
+  //     // ETC
+  //   };
+  // }>(homeQuery, {});
 
   return (
     <>

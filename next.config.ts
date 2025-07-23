@@ -259,18 +259,19 @@ const nextConfig: NextConfig = {
           {
             key: 'Content-Security-Policy',
             value: [
-              "default-src 'self'",
+              "default-src 'self' blob: data:",
               "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
-              "connect-src 'self' https://www.google-analytics.com https://api.vercel.com https://vitals.vercel-insights.com https://strapi-aws-s3-images-bucket-vondekay.s3.eu-west-3.amazonaws.com https://xgwo8kgkwgc0c04sokc80kw8.109.176.197.111.sslip.io https://api.mapbox.com https://events.mapbox.com https://*.ingest.de.sentry.io https://va.vercel-scripts.com https://*.vercel-scripts.com https://*.vercel.com",
+              "connect-src 'self' https://www.google-analytics.com https://api.vercel.com https://vitals.vercel-insights.com https://strapi-aws-s3-images-bucket-vondekay.s3.eu-west-3.amazonaws.com https://xgwo8kgkwgc0c04sokc80kw8.109.176.197.111.sslip.io https://api.mapbox.com https://events.mapbox.com https://*.ingest.de.sentry.io https://va.vercel-scripts.com https://*.vercel-scripts.com https://*.vercel.com blob: data: https:",
               "worker-src 'self' blob:",
               "frame-src 'none'",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
               'upgrade-insecure-requests',
+              "media-src 'self' blob: data:"
             ].join('; '),
           },
         ],

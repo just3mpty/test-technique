@@ -1,7 +1,10 @@
-@use "sass:map";
-@use "sass:list";
+@use 'sass:map';
+@use 'sass:list';
 
-// $ MAIL COLORS
+// $ MAIN COLORS
+$yellow: #cbd62b;
+$blue: #9a9cc1;
+$pink: #c62368;
 
 $transition: (
   properties: (
@@ -15,11 +18,10 @@ $transition: (
   timing-function: ease-in-out,
 );
 
-/// Mixin réutilisable
 /// @param $cfg  : map(properties, duration, timing-function)
-/// Usage: @include transition($transition);
+
 @mixin transition($cfg) {
-  transition-property: list.join(map.get($cfg, properties), ", ");
+  transition-property: list.join(map.get($cfg, properties), ', ');
   transition-duration: map.get($cfg, duration);
   transition-timing-function: map.get($cfg, timing-function);
 }
@@ -32,43 +34,43 @@ $Optimal:
   Optimal Fallback;
 
 $breakpoints: (
-  "xs": 320px,
+  'xs': 320px,
   // très petits téléphones
-  "sm": 480px,
+  'sm': 480px,
   // téléphones standards (iPhone SE, Android petit format)
-  "md": 768px,
+  'md': 768px,
   // tablettes (iPad mini, Kindle)
-  "lg": 1024px,
+  'lg': 1024px,
   // tablettes horizontales / petits laptops
-  "xl": 1280px,
+  'xl': 1280px,
   // laptops standards
-  "2xl": 1440px,
+  '2xl': 1440px,
   // écrans larges (MacBook Pro 16", etc.)
-  "3xl": 1600px,
+  '3xl': 1600px,
   // très grands écrans
-  "4xl": 1920px,
+  '4xl': 1920px,
   // full HD / moniteurs larges
-  "5xl": 2560px, // ultra HD / écrans Retina 27"+ ou 4K
+  '5xl': 2560px, // ultra HD / écrans Retina 27"+ ou 4K
 );
 
 // Breakpoints spécifiques pour l'orientation des tablettes
 $tablet-breakpoints: (
-  "tablet-portrait": 1024px,
+  'tablet-portrait': 1024px,
   // iPad Pro en mode portrait (vertical) - 1024px
-  "tablet-landscape": 1366px, // iPad Pro en mode landscape (horizontal) - 1366px
+  'tablet-landscape': 1366px, // iPad Pro en mode landscape (horizontal) - 1366px
 );
 
 // Résolutions spécifiques avec ratios fixes
 $specific-resolutions: (
-  "1200x600": (
+  '1200x600': (
     width: 1200px,
     height: 600px,
   ),
-  "1440x800": (
+  '1440x800': (
     width: 1440px,
     height: 800px,
   ),
-  "1600x800": (
+  '1600x800': (
     width: 1600px,
     height: 800px,
   ),
@@ -229,23 +231,23 @@ $specific-resolutions: (
 
 // Variables pour les espacements communs
 $spacing: (
-  "xs": 5px,
-  "sm": 10px,
-  "md": 20px,
-  "lg": 40px,
-  "xl": 80px,
+  'xs': 5px,
+  'sm': 10px,
+  'md': 20px,
+  'lg': 40px,
+  'xl': 80px,
 );
 
 // Mixin pour les paddings responsives
-@mixin responsive-padding($size: "md") {
+@mixin responsive-padding($size: 'md') {
   $value: map.get($spacing, $size);
   padding: $value;
 
-  @include respond("md") {
-    padding: map.get($spacing, "sm");
+  @include respond('md') {
+    padding: map.get($spacing, 'sm');
   }
 
-  @include respond("sm") {
-    padding: map.get($spacing, "xs");
+  @include respond('sm') {
+    padding: map.get($spacing, 'xs');
   }
 }
