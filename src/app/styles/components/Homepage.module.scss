@@ -14,18 +14,75 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
-    background: $pink;
+    background: $yellow;
     padding: 30px;
     color: whitesmoke;
+    position: relative;
+
+    h2 {
+      color: $pink;
+      font-weight: 700;
+      text-transform: uppercase;
+      font-size: 60px;
+    }
+
+    p {
+      font-size: 18px;
+      width: 50%;
+    }
+
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+
+      li {
+        padding: 15px 30px;
+        border-radius: 8px;
+        background: $pink;
+        text-transform: uppercase;
+        font-size: 16px;
+        width: fit-content;
+      }
+    }
+
+    .buttons {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 30px;
+
+      button {
+        width: fit-content;
+        padding: 15px 30px;
+        border-radius: 8px;
+        background: $blue;
+        text-transform: uppercase;
+        font-size: 16px;
+        color: $yellow;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+    }
   }
 
   .canvas {
     flex: 1;
     max-width: 50%;
     height: 100%;
+    background: $blue;
 
     canvas {
-      background: $blue;
+      background: transparent;
     }
   }
 }

@@ -34,19 +34,19 @@ export default function PortfolioClient({ projects }: Props) {
                 <li key={i}>{tag.tag}</li>
               ))}
             </ul>
-            <div>
+            <div className={styles.buttons}>
               <button onClick={prev}>← Précédent</button>
               <button onClick={next}>Suivant →</button>
             </div>
           </div>
 
           <div className={styles.canvas}>
-            <Canvas camera={{ position: [0, 0, 0], fov: 75 }}>
+            <Canvas camera={{ position: [0, 0, 0], fov: 45 }}>
               <ambientLight />
               <directionalLight position={[2, 2, 2]} />
               <Model modelPath={getModelPath(project)} />
-              <OrbitControls enableZoom={false} />
-              <Environment preset='sunset' />
+              <OrbitControls />
+              <Environment preset='city' />
             </Canvas>
           </div>
         </>

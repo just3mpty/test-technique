@@ -13,7 +13,7 @@ export default function Model3D({ modelPath }: Props) {
 
   return (
     <Suspense fallback={null}>
-      <primitive object={gltf.scene} scale={1.5} position={[0, -10, -20]} />
+      <primitive object={gltf.scene} position={[0, -5, -20]} />
     </Suspense>
   );
 }
