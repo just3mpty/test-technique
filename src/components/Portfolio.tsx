@@ -9,6 +9,7 @@ import dynamic from 'next/dynamic';
 import styles from '../app/styles/components/Homepage.module.scss';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
+import { changeTexte } from '@/utils/changeText';
 
 gsap.registerPlugin(SplitText);
 
@@ -20,84 +21,24 @@ type Props = {
 
 export default function PortfolioClient({ projects }: Props) {
   const [index, setIndex] = useState(0);
-  const [animating, setAnimating] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
+  const projectRef = useRef<HTMLDivElement>(null);
 
   const project = projects[index];
 
-  const animateTextChange = (direction: 'next' | 'prev') => {
-    if (animating) return;
-
-    setAnimating(true);
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        setIndex((i) =>
-          direction === 'next'
-            ? (i + 1) % projects.length
-            : (i - 1 + projects.length) % projects.length
-        );
-
-        setTimeout(() => {
-          const newTitleSplit = new SplitText(titleRef.current, { type: 'chars' });
-          const newDescSplit = new SplitText(descRef.current, { type: 'chars' });
-
-          gsap.set([newTitleSplit.chars, newDescSplit.chars], { y: 50, opacity: 0 });
-
-          gsap
-            .timeline({
-              onComplete: () => setAnimating(false),
-            })
-            .to(newTitleSplit.chars, {
-              y: 0,
-              opacity: 1,
-              stagger: 0.03,
-              ease: 'power3.out',
-              duration: 0.6,
-            })
-            .to(
-              newDescSplit.chars,
-              {
-                y: 0,
-                opacity: 1,
-                stagger: {
-                  from: 'start',
-                  each: 0.03,
-                },
-                ease: 'power3.out',
-                duration: 0.2,
-              },
-              '-=0.6'
-            );
-        }, 200);
-      },
+  const handleChange = (direction: 'next' | 'prev') => {
+    changeTexte({
+      direction,
+      setIndex,
+      projectsLength: projects.length,
+      titleRef,
+      descRef,
     });
-
-    const oldTitleSplit = new SplitText(titleRef.current, { type: 'chars' });
-    const oldDescSplit = new SplitText(descRef.current, { type: 'chars' });
-
-    tl.to(oldTitleSplit.chars, {
-      y: -50,
-      opacity: 0,
-      stagger: 0.03,
-      ease: 'power3.in',
-      duration: 0.4,
-    }).to(
-      oldDescSplit.chars,
-      {
-        y: -50,
-        opacity: 0,
-        stagger: 0.03,
-        ease: 'power3.in',
-        duration: 0.15,
-      },
-      '-=0.6'
-    );
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={projectRef}>
       {project && (
         <>
           <div className={styles.projects}>
@@ -109,12 +50,8 @@ export default function PortfolioClient({ projects }: Props) {
               ))}
             </ul>
             <div className={styles.buttons}>
-              <button onClick={() => animateTextChange('prev')} disabled={animating}>
-                ← Précédent
-              </button>
-              <button onClick={() => animateTextChange('next')} disabled={animating}>
-                Suivant →
-              </button>
+              <button onClick={() => handleChange('prev')}>← Précédent</button>
+              <button onClick={() => handleChange('next')}>Suivant →</button>
             </div>
           </div>
 
