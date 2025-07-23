@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic';
 import styles from '../app/styles/components/Homepage.module.scss';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
-import { changeTexte } from '@/utils/changeText';
+import { changeText } from '@/utils/changeText';
 
 gsap.registerPlugin(SplitText);
 
@@ -24,16 +24,18 @@ export default function PortfolioClient({ projects }: Props) {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const projectRef = useRef<HTMLDivElement>(null);
+  const tagsRef = useRef<HTMLUListElement>(null);
 
   const project = projects[index];
 
   const handleChange = (direction: 'next' | 'prev') => {
-    changeTexte({
+    changeText({
       direction,
       setIndex,
       projectsLength: projects.length,
       titleRef,
       descRef,
+      tagsRef,
     });
   };
 
@@ -44,7 +46,7 @@ export default function PortfolioClient({ projects }: Props) {
           <div className={styles.projects}>
             <h2 ref={titleRef}>{project.title}</h2>
             <p ref={descRef}>{project.description}</p>
-            <ul>
+            <ul ref={tagsRef}>
               {project.tags?.map((tag, i) => (
                 <li key={i}>{tag.tag}</li>
               ))}

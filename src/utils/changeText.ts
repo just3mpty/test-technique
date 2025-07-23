@@ -7,14 +7,16 @@ type Params = {
   projectsLength: number;
   titleRef: React.RefObject<HTMLHeadingElement | null>;
   descRef: React.RefObject<HTMLParagraphElement | null>;
+  tagsRef: React.RefObject<HTMLUListElement | null>;
 };
 
-export const changeTexte = async ({
+export const changeText = async ({
   direction,
   setIndex,
   projectsLength,
   titleRef,
   descRef,
+  tagsRef,
 }: Params) => {
   const titleElement = titleRef.current;
   const descElement = descRef.current;
@@ -36,13 +38,33 @@ export const changeTexte = async ({
     duration: 0.3,
     ease: 'power2.in',
   });
-  outTimeline.to(splitDesc.lines, {
-    y: -50,
-    opacity: 0,
-    stagger: 0.02,
-    duration: 0.3,
-    ease: 'power2.in',
-  });
+  outTimeline.to(
+    splitDesc.lines,
+    {
+      y: -50,
+      opacity: 0,
+      stagger: 0.02,
+      duration: 0.3,
+      ease: 'power2.in',
+    },
+    '<'
+  );
+
+  if (tagsRef.current) {
+    const liElements = tagsRef.current.querySelectorAll('li');
+
+    outTimeline.to(
+      liElements,
+      {
+        opacity: 0,
+        x: -50,
+        duration: 0.3,
+        stagger: 0.06,
+        ease: 'power2.out',
+      },
+      '<'
+    );
+  }
 
   await outTimeline.then();
 
@@ -78,4 +100,15 @@ export const changeTexte = async ({
     duration: 0.4,
     ease: 'power2.out',
   });
+  if (tagsRef.current) {
+    const liElements = tagsRef.current.querySelectorAll('li');
+
+    outTimeline.to(liElements, {
+      opacity: 1,
+      x: 0,
+      duration: 0.4,
+      stagger: 0.06,
+      ease: 'power2.out',
+    });
+  }
 };
