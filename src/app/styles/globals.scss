@@ -1,2 +1,9 @@
 @use './reset' as *;
 @use './variables' as *;
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: $background;
+}

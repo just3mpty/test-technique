@@ -6,7 +6,6 @@ import { barlow } from '@/utils/fonts';
 
 const APP_TITLE = 'Les Mauvaises';
 const APP_DESCRIPTION = "Page projet de l'agence, mais cé moi ki lé fé !";
-// Tout le repo a été créé avec l'IA en fait si je comprends bien.
 
 export const metadata: Metadata = {
   applicationName: APP_TITLE,

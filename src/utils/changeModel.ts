@@ -5,7 +5,7 @@ type Params = {
   direction: 'next' | 'prev';
   setIndex: (callback: (i: number) => number) => void;
   projectsLength: number;
-  modelRef: React.RefObject<THREE.Group | null>;
+  modelRef: React.RefObject<THREE.Mesh | null>;
 };
 
 export const changeModel = async ({ direction, setIndex, projectsLength, modelRef }: Params) => {
@@ -14,15 +14,25 @@ export const changeModel = async ({ direction, setIndex, projectsLength, modelRe
 
   const outTl = gsap.timeline();
 
-  outTl.to(
-    model.position,
-    {
-      y: 20,
-      duration: 0.4,
-      ease: 'power2.inOut',
-    },
-    0
-  );
+  outTl
+    .to(
+      model.position,
+      {
+        y: 10,
+        duration: 0.6,
+        ease: 'back.in',
+      },
+      '<'
+    )
+    .to(
+      model.rotation,
+      {
+        y: Math.PI / 500,
+        duration: 1,
+        ease: 'back.inOut',
+      },
+      '<'
+    );
 
   await outTl.then();
 
@@ -36,15 +46,19 @@ export const changeModel = async ({ direction, setIndex, projectsLength, modelRe
   const newModel = modelRef.current;
   if (!newModel) return;
 
-  gsap.set(newModel.position, { y: -20 });
+  gsap.set(newModel.position, { y: 0 });
 
-  gsap.timeline().to(
-    newModel.position,
-    {
-      y: -5,
-      duration: 0.4,
+  gsap
+    .timeline()
+    .from(newModel.position, {
+      y: -10,
+      duration: 0.6,
       ease: 'power2.inOut',
-    },
-    0
-  );
+      delay: 2,
+    })
+    .to(model.rotation, {
+      y: 5,
+      duration: 1,
+      ease: 'power2.inOut',
+    });
 };

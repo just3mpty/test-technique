@@ -1,11 +1,24 @@
 'use client';
 import useLenis from '@/hooks/useLenis';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
+import { usePathname } from 'next/navigation';
+import PageTransition from '../components/PageTransition';
 
-const Template = ({ children }: { children: React.ReactNode }) => {
+export default function Template({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+  const transitionRef = useRef<any>(null);
   useLenis();
 
-  return <>{children}</>;
-};
+  useEffect(() => {
+    if (transitionRef.current) {
+      transitionRef.current.animateIn();
+    }
+  }, [pathname]);
 
-export default Template;
+  return (
+    <>
+      <PageTransition ref={transitionRef} />
+      {children}
+    </>
+  );
+}

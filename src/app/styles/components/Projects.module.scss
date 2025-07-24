@@ -1,0 +1,121 @@
+@use '../variables' as *;
+
+.container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  color: $foreground;
+
+  .canvas {
+    flex: 1;
+    max-width: 30%;
+    height: 90vh;
+    background: $background;
+  }
+
+  .project {
+    flex: 1;
+    min-width: 50%;
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 30px;
+    padding: 30px;
+    position: relative;
+
+    .title {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      gap: 15px;
+
+      h2 {
+        color: $foreground;
+        font-weight: 900;
+        text-transform: uppercase;
+        font-size: clamp(30px, 8vw, 140px);
+      }
+    }
+
+    .infos {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      width: 100%;
+
+      h3 {
+        flex: 1;
+        font-size: 22px;
+        font-weight: 700;
+      }
+
+      p {
+        font-size: 18px;
+        opacity: 0.75;
+        line-height: 1.5;
+        max-width: 50%;
+      }
+
+      ul {
+        flex: 2;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 15px;
+
+        li {
+          width: fit-content;
+          padding: 15px 30px;
+          border-radius: 8px;
+          background: $blue;
+          text-transform: uppercase;
+          font-weight: 600;
+          font-size: 16px;
+          color: $foreground;
+        }
+      }
+
+      .palette {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+
+        span {
+          padding: 15px;
+          border-radius: 8px;
+          color: $background;
+          font-weight: 600;
+        }
+      }
+    }
+
+    .buttons {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+
+      button {
+        padding: 15px 30px;
+        border-radius: 8px;
+        background: $pink;
+        color: $background;
+        text-transform: uppercase;
+        font-size: 16px;
+        width: fit-content;
+        cursor: pointer;
+        border: none;
+        outline: none;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
+      a {
+        @extend button;
+        background: $background;
+        color: $pink;
+        border: 1px solid $pink;
+      }
+    }
+  }
+}

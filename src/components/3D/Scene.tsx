@@ -7,17 +7,17 @@ import * as THREE from 'three';
 
 export default function Scene({
   path,
-  groupRef,
+  modelRef,
 }: {
   path: string;
-  groupRef: React.RefObject<THREE.Group | null>;
+  modelRef: React.RefObject<THREE.Mesh | null>;
 }) {
   return (
     <Canvas camera={{ position: [0, 0, 10], fov: 45 }}>
       <ambientLight intensity={1.5} />
       <OrbitControls enableZoom={false} />
-      <Model groupRef={groupRef} modelPath={path} />
-      <Environment preset='city' />
+      <Model modelRef={modelRef} modelPath={path} />
+      <Environment preset='sunset' />
     </Canvas>
   );
 }

@@ -1,0 +1,38 @@
+'use client';
+import { useRouter } from 'next/navigation';
+import { useRef } from 'react';
+import PageTransition from './PageTransition';
+import React from 'react';
+
+interface TransitionLinkProps {
+  href: string;
+  children: React.ReactNode;
+  className?: string;
+}
+
+const TransitionLink = ({ href, children, className }: TransitionLinkProps) => {
+  const router = useRouter();
+  const transitionRef = useRef<any>(null);
+
+  const handleClick = async (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (transitionRef.current) {
+      await new Promise((resolve) => {
+        transitionRef.current.animateIn();
+        setTimeout(resolve, 800); // Durée de l'animation (0.6s + 0.2s)
+      });
+    }
+    router.push(href);
+  };
+
+  return (
+    <>
+      <PageTransition ref={transitionRef} />
+      <a href={href} onClick={handleClick} className={className}>
+        {children}
+      </a>
+    </>
+  );
+};
+
+export default TransitionLink;
