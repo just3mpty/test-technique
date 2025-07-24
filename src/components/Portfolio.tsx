@@ -11,7 +11,6 @@ import Scene from './3D/Scene';
 import Link from 'next/link';
 import Image from 'next/image';
 import * as THREE from 'three';
-import { changeModel } from '@/utils/changeModel';
 import TransitionLink from './TransitionLink';
 
 gsap.registerPlugin(SplitText);
@@ -40,12 +39,6 @@ export default function PortfolioClient({ projects }: Props) {
       descRef,
       tagsRef,
       paletteRef,
-    });
-    changeModel({
-      direction,
-      setIndex,
-      projectsLength: projects.length,
-      modelRef,
     });
   };
 

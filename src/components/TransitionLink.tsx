@@ -8,9 +8,17 @@ interface TransitionLinkProps {
   href: string;
   children: React.ReactNode;
   className?: string;
+  mouseEnter?: () => void;
+  mouseLeave?: () => void;
 }
 
-const TransitionLink = ({ href, children, className }: TransitionLinkProps) => {
+const TransitionLink = ({
+  href,
+  children,
+  className,
+  mouseEnter,
+  mouseLeave,
+}: TransitionLinkProps) => {
   const router = useRouter();
   const transitionRef = useRef<any>(null);
 
@@ -28,7 +36,13 @@ const TransitionLink = ({ href, children, className }: TransitionLinkProps) => {
   return (
     <>
       <PageTransition ref={transitionRef} />
-      <a href={href} onClick={handleClick} className={className}>
+      <a
+        onMouseEnter={mouseEnter}
+        onMouseLeave={mouseLeave}
+        href={href}
+        onClick={handleClick}
+        className={className}
+      >
         {children}
       </a>
     </>
