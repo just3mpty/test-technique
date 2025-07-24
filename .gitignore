@@ -19,10 +19,7 @@
 
 # production
 /build
-<<<<<<< HEAD
 /public/models/
-=======
->>>>>>> 145141e29ac014f90fc9e00428debe1b6b799b1a
 
 # misc
 .DS_Store
