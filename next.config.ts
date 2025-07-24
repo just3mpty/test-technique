@@ -259,19 +259,30 @@ const nextConfig: NextConfig = {
           {
             key: 'Content-Security-Policy',
             value: [
+<<<<<<< HEAD
               "default-src 'self' blob: data:",
+=======
+              "default-src 'self'",
+>>>>>>> 145141e29ac014f90fc9e00428debe1b6b799b1a
               "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://vercel.live https://va.vercel-scripts.com",
               "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
               "img-src 'self' data: https: blob:",
               "font-src 'self' data: https://fonts.gstatic.com",
+<<<<<<< HEAD
               "connect-src 'self' https://www.google-analytics.com https://api.vercel.com https://vitals.vercel-insights.com https://strapi-aws-s3-images-bucket-vondekay.s3.eu-west-3.amazonaws.com https://xgwo8kgkwgc0c04sokc80kw8.109.176.197.111.sslip.io https://api.mapbox.com https://events.mapbox.com https://*.ingest.de.sentry.io https://va.vercel-scripts.com https://*.vercel-scripts.com https://*.vercel.com blob: data: https:",
+=======
+              "connect-src 'self' https://www.google-analytics.com https://api.vercel.com https://vitals.vercel-insights.com https://strapi-aws-s3-images-bucket-vondekay.s3.eu-west-3.amazonaws.com https://xgwo8kgkwgc0c04sokc80kw8.109.176.197.111.sslip.io https://api.mapbox.com https://events.mapbox.com https://*.ingest.de.sentry.io https://va.vercel-scripts.com https://*.vercel-scripts.com https://*.vercel.com",
+>>>>>>> 145141e29ac014f90fc9e00428debe1b6b799b1a
               "worker-src 'self' blob:",
               "frame-src 'none'",
               "object-src 'none'",
               "base-uri 'self'",
               "form-action 'self'",
               'upgrade-insecure-requests',
+<<<<<<< HEAD
               "media-src 'self' blob: data:"
+=======
+>>>>>>> 145141e29ac014f90fc9e00428debe1b6b799b1a
             ].join('; '),
           },
         ],
