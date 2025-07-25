@@ -5,12 +5,25 @@
   display: flex;
   justify-content: space-between;
   color: $foreground;
+  position: relative;
+
+  svg.svg {
+    position: absolute;
+    top: 0;
+    right: -30%;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+
+    path {
+      fill: $pink;
+    }
+  }
 
   .canvas {
     flex: 1;
     max-width: 30%;
     height: 90vh;
-    background: $background;
   }
 
   .project {
@@ -68,7 +81,7 @@
           width: fit-content;
           padding: 15px 30px;
           border-radius: 8px;
-          background: $blue;
+          background: rgba($background, 0.5);
           text-transform: uppercase;
           font-weight: 600;
           font-size: 16px;
@@ -112,7 +125,7 @@
       }
       a {
         @extend button;
-        background: $background;
+        background: transparent;
         color: $pink;
         border: 1px solid $pink;
       }

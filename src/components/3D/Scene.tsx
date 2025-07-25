@@ -17,7 +17,7 @@ export default function Scene({
       <ambientLight intensity={1.5} />
       <OrbitControls enableZoom={false} />
       <Model modelRef={modelRef} modelPath={path} />
-      <Environment preset='sunset' />
+      <Environment preset='studio' />
     </Canvas>
   );
 }

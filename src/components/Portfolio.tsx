@@ -44,7 +44,7 @@ export default function PortfolioClient({ projects }: Props) {
     setIsAnimating(true);
 
     await animateTextOut({ titleRef, descRef, tagsRef, paletteRef });
-    await animateModelChange({ modelRef });
+    await animateModelChange({ modelRef, direction });
 
     setIndex((prev) => {
       let nextIdx =
@@ -57,6 +57,12 @@ export default function PortfolioClient({ projects }: Props) {
 
   return (
     <section className={styles.container} ref={projectRef}>
+      <svg className={styles.svg} viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'>
+        <path
+          d='M17.1,-36.3C23,-22.9,29.1,-19.5,41.5,-12.9C53.8,-6.4,72.4,3.4,78.1,16C83.8,28.7,76.5,44.3,62.9,47.7C49.4,51,29.6,42.1,13.7,46.8C-2.1,51.4,-13.9,69.6,-22.5,70.1C-31.2,70.6,-36.5,53.5,-43.4,40.5C-50.3,27.4,-58.8,18.5,-66.3,5.9C-73.8,-6.8,-80.4,-23.3,-73.9,-32.3C-67.5,-41.3,-48.1,-42.9,-33.6,-52.4C-19.1,-61.9,-9.5,-79.3,-2,-76.2C5.6,-73.2,11.3,-49.8,17.1,-36.3Z'
+          transform='translate(100 100)'
+        />
+      </svg>
       {project && (
         <div className={styles.project}>
           <div className={styles.infos}>

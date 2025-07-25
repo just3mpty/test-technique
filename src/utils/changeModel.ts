@@ -42,18 +42,18 @@ export const animateModelChange = async ({ modelRef }: Params) => {
   const inTl = gsap.timeline();
   inTl
     .to(
-      newModel.position,
+      newModel.rotation,
       {
-        y: 0,
+        y: '+=6.28319',
         duration: 0.6,
         ease: 'power2.out',
       },
       '<'
     )
     .to(
-      newModel.rotation,
+      newModel.position,
       {
-        y: '+=6.28319',
+        y: 0,
         duration: 0.6,
         ease: 'power2.out',
       },
