@@ -1,35 +1,27 @@
 import { gsap } from 'gsap';
 import { SplitText } from 'gsap/SplitText';
 
-type Params = {
-  direction: 'next' | 'prev';
-  setIndex: (callback: (i: number) => number) => void;
-  projectsLength: number;
+export type AnimateTextParams = {
   titleRef: React.RefObject<HTMLHeadingElement | null>;
   descRef: React.RefObject<HTMLParagraphElement | null>;
   tagsRef: React.RefObject<HTMLUListElement | null>;
   paletteRef: React.RefObject<HTMLDivElement | null>;
 };
 
-export const changeText = async ({
-  direction,
-  setIndex,
-  projectsLength,
+export const animateTextOut = async ({
   titleRef,
   descRef,
   tagsRef,
   paletteRef,
-}: Params) => {
+}: AnimateTextParams) => {
   const titleElement = titleRef.current;
   const descElement = descRef.current;
-
   if (!titleElement || !descElement) return;
 
   const splitTitle = new SplitText(titleElement, { type: 'chars' });
   const splitDesc = new SplitText(descElement, { type: 'lines' });
 
   const outTimeline = gsap.timeline();
-
   outTimeline.to(splitTitle.chars, {
     y: -50,
     opacity: 0,
@@ -55,7 +47,6 @@ export const changeText = async ({
   if (tagsRef.current || paletteRef.current) {
     const liElements = tagsRef.current?.querySelectorAll('li');
     const paletteElements = paletteRef.current?.querySelectorAll('span');
-
     outTimeline.to(
       [liElements, paletteElements],
       {
@@ -70,23 +61,28 @@ export const changeText = async ({
   }
 
   await outTimeline.then();
+};
 
-  setIndex((prev) => {
-    if (direction === 'next') return (prev + 1) % projectsLength;
-    return (prev - 1 + projectsLength) % projectsLength;
-  });
+export const animateTextIn = async ({
+  titleRef,
+  descRef,
+  tagsRef,
+  paletteRef,
+}: AnimateTextParams) => {
+  const titleElement = titleRef.current;
+  const descElement = descRef.current;
+  if (!titleElement || !descElement) return;
 
-  await new Promise((resolve) => setTimeout(resolve, 10));
+  const splitTitle = new SplitText(titleElement, { type: 'chars' });
+  const splitDesc = new SplitText(descElement, { type: 'lines' });
 
-  const newTitleSplit = new SplitText(titleElement, { type: 'chars' });
-  const newDescSplit = new SplitText(descElement, { type: 'lines' });
-
-  gsap.set([newTitleSplit.chars, newDescSplit.lines], {
+  gsap.set([splitTitle.chars, splitDesc.lines], {
     y: 50,
     opacity: 0,
   });
 
-  gsap.to(newTitleSplit.chars, {
+  const inTimeline = gsap.timeline();
+  inTimeline.to(splitTitle.chars, {
     y: 0,
     opacity: 1,
     stagger: {
@@ -96,18 +92,21 @@ export const changeText = async ({
     duration: 0.4,
     ease: 'power2.out',
   });
-  gsap.to(newDescSplit.lines, {
-    y: 0,
-    opacity: 1,
-    stagger: 0.02,
-    duration: 0.4,
-    ease: 'power2.out',
-  });
+  inTimeline.to(
+    splitDesc.lines,
+    {
+      y: 0,
+      opacity: 1,
+      stagger: 0.02,
+      duration: 0.4,
+      ease: 'power2.out',
+    },
+    '<'
+  );
   if (tagsRef.current || paletteRef.current) {
     const liElements = tagsRef.current?.querySelectorAll('li');
     const paletteElements = paletteRef.current?.querySelectorAll('span');
-
-    outTimeline.to([liElements, paletteElements], {
+    inTimeline.to([liElements, paletteElements], {
       opacity: 1,
       x: 0,
       duration: 0.4,
@@ -115,4 +114,5 @@ export const changeText = async ({
       ease: 'power2.out',
     });
   }
+  await inTimeline.then();
 };

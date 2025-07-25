@@ -1,17 +1,18 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { ProjectType } from '@/types/ProjectType';
 import { getModelPath } from '@/utils/getModelPath';
 import styles from '../app/styles/components/Projects.module.scss';
 import gsap from 'gsap';
 import SplitText from 'gsap/SplitText';
-import { changeText } from '@/utils/changeText';
+import { animateTextOut, animateTextIn } from '@/utils/changeText';
 import Scene from './3D/Scene';
 import Link from 'next/link';
 import Image from 'next/image';
 import * as THREE from 'three';
 import TransitionLink from './TransitionLink';
+import { animateModelChange } from '@/utils/changeModel';
 
 gsap.registerPlugin(SplitText);
 
@@ -21,6 +22,7 @@ type Props = {
 
 export default function PortfolioClient({ projects }: Props) {
   const [index, setIndex] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
   const titleRef = useRef<HTMLHeadingElement>(null);
   const descRef = useRef<HTMLParagraphElement>(null);
   const projectRef = useRef<HTMLDivElement>(null);
@@ -30,15 +32,26 @@ export default function PortfolioClient({ projects }: Props) {
 
   const project = projects[index];
 
-  const handleChange = (direction: 'next' | 'prev') => {
-    changeText({
-      direction,
-      setIndex,
-      projectsLength: projects.length,
-      titleRef,
-      descRef,
-      tagsRef,
-      paletteRef,
+  useEffect(() => {
+    if (!isAnimating) return;
+    animateTextIn({ titleRef, descRef, tagsRef, paletteRef }).then(() => {
+      setIsAnimating(false);
+    });
+  }, [index]);
+
+  const handleChange = async (direction: 'next' | 'prev') => {
+    if (isAnimating) return;
+    setIsAnimating(true);
+
+    await animateTextOut({ titleRef, descRef, tagsRef, paletteRef });
+    await animateModelChange({ modelRef });
+
+    setIndex((prev) => {
+      let nextIdx =
+        direction === 'next'
+          ? (prev + 1) % projects.length
+          : (prev - 1 + projects.length) % projects.length;
+      return nextIdx;
     });
   };
 

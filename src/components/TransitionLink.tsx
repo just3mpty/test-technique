@@ -27,7 +27,7 @@ const TransitionLink = ({
     if (transitionRef.current) {
       await new Promise((resolve) => {
         transitionRef.current.animateIn();
-        setTimeout(resolve, 800); // Durée de l'animation (0.6s + 0.2s)
+        setTimeout(resolve, 800);
       });
     }
     router.push(href);

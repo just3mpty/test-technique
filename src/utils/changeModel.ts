@@ -2,23 +2,20 @@ import { gsap } from 'gsap';
 import * as THREE from 'three';
 
 type Params = {
-  direction: 'next' | 'prev';
-  setIndex: (callback: (i: number) => number) => void;
-  projectsLength: number;
+  direction?: 'next' | 'prev';
   modelRef: React.RefObject<THREE.Mesh | null>;
 };
 
-export const changeModel = async ({ direction, setIndex, projectsLength, modelRef }: Params) => {
+export const animateModelChange = async ({ modelRef }: Params) => {
   const model = modelRef.current;
   if (!model) return;
 
   const outTl = gsap.timeline();
-
   outTl
     .to(
       model.position,
       {
-        y: 10,
+        y: -10,
         duration: 0.6,
         ease: 'back.in',
       },
@@ -27,38 +24,41 @@ export const changeModel = async ({ direction, setIndex, projectsLength, modelRe
     .to(
       model.rotation,
       {
-        y: Math.PI / 500,
-        duration: 1,
-        ease: 'back.inOut',
+        y: '+=6.28319',
+        duration: 0.6,
+        ease: 'back.in',
       },
       '<'
     );
 
   await outTl.then();
 
-  setIndex((prev) => {
-    if (direction === 'next') return (prev + 1) % projectsLength;
-    return (prev - 1 + projectsLength) % projectsLength;
-  });
-
-  await new Promise((resolve) => setTimeout(resolve, 100));
-
   const newModel = modelRef.current;
   if (!newModel) return;
 
-  gsap.set(newModel.position, { y: 0 });
+  gsap.set(newModel.position, { y: 10 });
+  gsap.set(newModel.rotation, { y: 0 });
 
-  gsap
-    .timeline()
-    .from(newModel.position, {
-      y: -10,
-      duration: 0.6,
-      ease: 'power2.inOut',
-      delay: 2,
-    })
-    .to(model.rotation, {
-      y: 5,
-      duration: 1,
-      ease: 'power2.inOut',
-    });
+  const inTl = gsap.timeline();
+  inTl
+    .to(
+      newModel.position,
+      {
+        y: 0,
+        duration: 0.6,
+        ease: 'power2.out',
+      },
+      '<'
+    )
+    .to(
+      newModel.rotation,
+      {
+        y: '+=6.28319',
+        duration: 0.6,
+        ease: 'power2.out',
+      },
+      '<'
+    );
+
+  await inTl.then();
 };
